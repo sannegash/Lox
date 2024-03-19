@@ -3,6 +3,7 @@ package com.craftinginterpreters.lox;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -10,10 +11,13 @@ import java.util.List;
 
 public class Lox { 
     public static void main(String[] args) throws IOException { 
-        if(args.Lengsth > 1){ 
+        //Already in Lox session when running main
+        if(args.length > 1){ 
+            //start 
             System.out.Println("Usage: jlox [script]");
             System.exit(64);
         } else if (args.length == 1){ 
+            //path of file represented as a single value of an array
             runFile(args[0]);
         }else { 
             runPrompt();
@@ -38,4 +42,15 @@ public class Lox {
             run(line);
         }
     }
+
+    private static void run(String source ){ 
+        Scanner scanner = new Scanner(source);
+        List<Token> tokens = scanner.scanTokens();
+
+        //for now just print the tokens 
+        for(Token token : tokens ){ 
+            System.out.Println(token);
+        }
+    }
 }
+
